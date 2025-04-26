@@ -1,77 +1,61 @@
 
-# Despliegue de la Aplicación PokeDex a Azure
+# Despliegue de mi Aplicación PokeDex en Azure
 
-Este documento describe de manera clara y directa cómo desplegar o publicar el proyecto **PokeDex** desarrollado en **Angular** en la nube de **Microsoft Azure** utilizando **GitHub** como repositorio fuente.
+En este documento te voy a explicar cómo desplegué mi proyecto PokeDex, desarrollado en Angular, en la nube de Microsoft Azure usando GitHub* como repositorio de origen.
 
 ---
 
-## Requisitos previos
+Pasos que seguí para el despliegue
 
-Antes de iniciar, asegúrate de tener:
+1. Creación de la Web App en Azure
 
-- Una cuenta activa en [Microsoft Azure](https://portal.azure.com/).
-- Una cuenta en [GitHub](https://github.com/).
-- El proyecto **PokeDex** ya desarrollado en Angular y subido a GitHub.
-- Angular CLI instalado en tu máquina (`npm install -g @angular/cli`).
+* Ingresé al portal de Azure.
+*  Busqué "App Services" y seleccioné Crear.
+*   Configuré la Web App:
+   - Nombre: pokedex.
+   - Publicación: Código.
+   - Pila de runtime: Node.js
+   - Plan de App Service: Utilicé uno gratuito.
+   - Revisé todo y creé la Web App.
 
-## Pasos para el despliegue
+2. Configuración del despliegue continuo desde GitHub
 
-### 1. Crear una Web App en Azure
-
-1. Ingresa al portal de Azure.
-2. En el panel de búsqueda, escribe **"App Services"** y selecciona **Crear**.
-3. Configura la Web App:
-   - **Nombre**: pokedex-{loquesea} (debe ser único).
-   - **Publicación**: Código.
-   - **Pila de runtime**: Node.js (versión estable recomendada).
-   - **Región**: Selecciona la más cercana a tu público objetivo.
-   - **Plan de App Service**: Puedes usar uno gratuito (F1) para pruebas.
-
-4. Haz clic en **Revisar y Crear**, luego en **Crear**.
-
-### 2. Configurar despliegue continuo desde GitHub
-
-1. Una vez creada la Web App, abre el recurso.
-2. En el menú izquierdo, busca **Centro de implementación** o **Deployment Center**.
-3. En **Fuente**, selecciona **GitHub**.
-4. Autoriza a Azure para acceder a tu cuenta de GitHub si es necesario.
-5. Escoge el repositorio donde está tu PokeDex y selecciona la rama que quieres desplegar (generalmente `main` o `master`).
-6. Configura la construcción:
-   - **Framework**: Selecciona **Node.js**.
-   - **Comando de Build**: Usa el comando de Angular para compilar la app:
+   * Abrí el recurso creado en Azure.
+   * En el menú lateral, seleccioné Centro de implementación (Deployment Center).
+   *  En Fuente, elegí GitHub.
+   *   Autoricé a Azure para acceder a mi cuenta de GitHub.
+   *   Seleccioné el repositorio donde estaba mi PokeDex y la rama `main`.
+*  Configuré la construcción:
+   - Framework: Node.js.
+   - Comando de Build;
      ```bash
      npm install && npm run build -- --prod
      ```
-   - **Página de inicio**: Azure necesita saber qué carpeta usar, por lo que debes indicar que el `outputPath` está en `dist/`.
+   - Output Path: Especifiqué la carpeta `dist/`.
 
-7. Termina la configuración y guarda los cambios.
+3. Guardé todos los cambios.
 
-### 3. Ajustes adicionales (opcional pero recomendable)
+1. Ajustes adicionales que realicé
 
-- En la configuración de la App Service, establece las **Variables de entorno** para definir `NODE_ENV=production`.
-- Puedes activar **Always On** si tu plan lo permite, para que la app no entre en "reposo".
+- Configuré variables de entorno, como `NODE_ENV=production`.
+- Activé la opción Always On para mantener la aplicación siempre activa (si el plan lo permite).
 
-### 4. Validación del despliegue
+4. Validación final
 
-- Una vez que Azure termine de hacer el deploy, recibirás una notificación.
-- Ve a la URL de tu Web App (ejemplo: `https://pokedex-loquesea.azurewebsites.net`) y verifica que tu PokeDex esté funcionando.
-
----
-
-## Notas importantes
-
-- **Errores comunes**: Si ves errores 404 o que la página no carga bien, revisa que tu Angular esté construyendo con `base-href` correcto.
-  - Puedes ajustar en tu `angular.json` o construir así:
-    ```bash
-    ng build --prod --base-href /
-    ```
-
-- **Cambios futuros**: Cada vez que hagas "push" a la rama configurada en GitHub, Azure detecta los cambios y vuelve a desplegar automáticamente.
+- Una vez que Azure terminó el despliegue, probé mi aplicación visitando la URL pública, por ejemplo:
+  ```
+  https://pokedex-loquesea.azurewebsites.net
+  ```
 
 ---
 
-# Fin
+ Cosas que tuve en cuenta
 
-✨ Ahora tienes tu proyecto **PokeDex** de Angular en la nube, disponible para todo el mundo.
+- Si la página no cargaba bien (errores 404), revisé que el `base-href` estuviera configurado correctamente:
+  ```bash
+  ng build --prod --base-href /
+  ```
 
-¡Entrenadores, a capturar se ha dicho! 🌟🌊
+- Cada vez que hacía un `push` en GitHub, Azure automáticamente detectaba los cambios y actualizaba la app.
+
+
