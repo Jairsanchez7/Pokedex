@@ -64,12 +64,21 @@ Este archivo permite establecer políticas de seguridad importantes como:
 - Permitir el uso de la aplicación dentro de iframes (X-Frame-Options).
 - Configurar permisos de acceso a geolocalización, cámara y micrófono (Permissions-Policy).
 
-### 5. Validación final
+### 6. Solución de problemas con las imágenes
 
-- Una vez que Azure terminó el despliegue, probé mi aplicación visitando la URL pública, por ejemplo:
+Durante las pruebas detecté que algunas imágenes no se cargaban correctamente después del despliegue. Para solucionar este problema, realicé la siguiente acción:
+
+- En la ruta `src/environments/environment.prod.ts` agregué la siguiente línea de código:
+
+```typescript
+imagesPath: '/assets/images',
+```
+
+### 7. Validación final
+
+- Una vez que Azure terminó el despliegue, probé mi aplicación visitando la URL pública: 
   ```
-  (https://lemon-wave-0a0c0201e.6.azurestaticapps.net/)
-  ```
+  https://lemon-wave-0a0c0201e.6.azurestaticapps.net/
 
 ---
 
